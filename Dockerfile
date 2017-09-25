@@ -11,10 +11,6 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
 
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-
-
 # Install Maven 3.3.9
 RUN cd /opt/ && \
     wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
@@ -29,7 +25,7 @@ RUN cd /opt/ && \
 RUN apt-get update && \
     apt-get install curl && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-get install nodejs
+    apt-get install -y nodejs
 
 
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list && \
@@ -37,6 +33,15 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
     apt-key add linux_signing_key.pub && \
     apt update && \
     apt install -y google-chrome-stable
+
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+WORKDIR /var/
+COPY swarm* .
+
+CMD ["sh", "swarm.sh", "172b2f8fb373495fbd7f8f4ca4556b72"]
 
 # Define working directory.
 #WORKDIR /data
