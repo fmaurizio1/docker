@@ -39,7 +39,7 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 WORKDIR /var/
-COPY swarm* .
+COPY swarm* ./
 
 CMD ["sh", "swarm.sh", "172b2f8fb373495fbd7f8f4ca4556b72"]
 
