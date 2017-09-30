@@ -41,10 +41,4 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 WORKDIR /var/
 COPY swarm* ./
 
-CMD ["sh", "swarm.sh", "172b2f8fb373495fbd7f8f4ca4556b72"]
-
-# Define working directory.
-#WORKDIR /data
-
-# Define default command.
-#CMD ["bash"]
+CMD ["sh", "swarm.sh"]
