@@ -15,18 +15,13 @@ RUN \
 RUN cd /opt/ && \
     wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
     tar -xvzf apache-maven-3.3.9-bin.tar.gz && \
-    mv apache-maven-3.3.9 maven && \
-    echo "export M2_HOME=/opt/maven" > /etc/profile.d/mavenenv.sh && \
-    echo "export PATH=/opt/maven/bin:$PATH" >> /etc/profile.d/mavenenv.sh && \
-    /bin/bash -c "source /etc/profile.d/mavenenv.sh"
-
+    mv apache-maven-3.3.9 maven
 
 # Install nodejs
 RUN apt-get update && \
     apt-get install curl && \
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt-get install -y nodejs
-
 
 # Install git
 RUN apt-get update && \
@@ -39,9 +34,10 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
     apt update && \
     apt install -y google-chrome-stable
 
-
-# Define commonly used JAVA_HOME variable
+# Define system env variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV M2_HOME /opt/maven
+ENV PATH $PATH:/opt/maven/bin
 
 WORKDIR /var/
 COPY swarm* ./
